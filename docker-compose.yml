@@ -1,18 +1,8 @@
 services:
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3001:3002"
-  #   environment:
-  #     DATABASE_URL: "postgresql://postgres:postgres@db:5432/db_projeto"
-  #   depends_on:
-  #     - db
-  #   command: npm run start:dev
-
   db:
     image: postgres
+    container_name: db
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -21,6 +11,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
 
 volumes:
   postgres_data:
