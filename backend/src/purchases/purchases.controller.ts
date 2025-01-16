@@ -26,9 +26,16 @@ export class PurchasesController {
     return this.purchasesService.findOne(id);
   }
 
-  // Atualizar status da compra ( Pendente, Cancelado, Completo)
+  // Buscar todas as compras
+  @Get()
+  findAll(): Promise<Purchase[]> {
+    return this.purchasesService.findAll();
+  }
+
+  // Atualizar status da compra (Pendente, Cancelado, Completo)
   @Patch(':id/status')
   update(@Param('id') id: number, @Body() updatePurchaseDto: UpdatePurchaseDto): Promise<Purchase> {
     return this.purchasesService.update(id, updatePurchaseDto);
   }
 }
+

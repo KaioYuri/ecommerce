@@ -1,6 +1,7 @@
+import { CreateProductDto, UpdateProductDto, CreateCategoryDto, UpdateCategoryDto } from './dtos';
 import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { CreateProductDto, UpdateProductDto, CreateCategoryDto, UpdateCategoryDto } from './dtos';
+import { Category } from './entities/category.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -54,5 +55,15 @@ export class ProductsController {
   @Delete('categories/:id')
   removeCategory(@Param('id') id: number) {
     return this.productsService.removeCategory(id);
+  }
+};
+
+@Controller('categories')
+export class CategoriesController {
+  constructor(private readonly productsService: ProductsService) {}
+
+  @Get()
+  async getAllCategories(): Promise<Category[]> {
+    return this.productsService.findAllCategories();
   }
 }

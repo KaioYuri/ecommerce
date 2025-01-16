@@ -1,18 +1,18 @@
+import { CreateProductDto, UpdateProductDto, CreateCategoryDto, UpdateCategoryDto } from './dtos';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Category } from './entities/category.entity';
-import { CreateProductDto, UpdateProductDto, CreateCategoryDto, UpdateCategoryDto } from './dtos';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
-    private productsRepository: Repository<Product>,  // Usando a entidade diretamente
+    private productsRepository: Repository<Product>,
 
     @InjectRepository(Category)
-    private categoriesRepository: Repository<Category>,  // Usando a entidade diretamente
+    private categoriesRepository: Repository<Category>,
   ) {}
 
   // Criação do produto
@@ -81,7 +81,7 @@ export class ProductsService {
 
   // Buscar todas as categorias
   async findAllCategories(): Promise<Category[]> {
-    return this.categoriesRepository.find({ relations: ['products'] });
+      return this.categoriesRepository.find();
   }
 
   // Buscar categoria por ID
